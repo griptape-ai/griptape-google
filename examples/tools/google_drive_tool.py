@@ -1,15 +1,10 @@
-# Griptape Google Extension
-
-## Overview
-This extension provides several [Tools](https://docs.griptape.ai/stable/griptape-tools/) for various Google services.
-
-```python
 import os
 
 from griptape.structures import Agent
-from griptape.google.tools import GoogleGmailTool
+from griptape.google.tools import GoogleDriveTool
 
-gmail_tool = GoogleGmailTool(
+# Create the GoogleDriveTool tool
+google_drive_tool = GoogleDriveTool(
     service_account_credentials={
         "type": os.environ["GOOGLE_ACCOUNT_TYPE"],
         "project_id": os.environ["GOOGLE_PROJECT_ID"],
@@ -25,23 +20,10 @@ gmail_tool = GoogleGmailTool(
     owner_email=os.environ["GOOGLE_OWNER_EMAIL"],
 )
 
-agent = Agent(tools=[gmail_tool])
+# Set up an agent using the GoogleDriveTool tool
+agent = Agent(tools=[google_drive_tool])
 
+# Task: Save content to my Google Drive (default directory is root)
 agent.run(
-    "Create a draft email in Gmail to example@email.com with the subject 'Test Draft', the body "
-    "'This is a test draft email.'",
+    "Save the content 'Hi this is Tony' in a filed named 'hello.txt' to my Drive.",
 )
-```
-
-## Installation
-
-Poetry:
-```bash
-poetry add https://github.com/griptape-ai/griptape-google.git
-```
-
-Pip:
-```bash
-pip install git+https://github.com/griptape-ai/griptape-google.git
-```
-
